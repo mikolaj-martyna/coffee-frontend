@@ -7,6 +7,7 @@ import Root from "./root/Root";
 import Login from "./login/Login";
 import Register from "./register/Register";
 import Checkout from "./checkout/Checkout";
+import Products from "./product/Products";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
             {
                 path: "register",
                 element: <Register/>
+            },
+            {
+                path: "products",
+                element: <Products/>
             },
         ]
     },
