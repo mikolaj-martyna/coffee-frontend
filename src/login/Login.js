@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link as RouterLink} from "react-router-dom";
+import {useState} from "react";
+import {Alert} from "@mui/material";
+import {Check as CheckIcon} from "@mui/icons-material";
 
 function Copyright(props) {
     return (
@@ -30,13 +33,42 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-    const handleSubmit = (event) => {
+    const [status, setStatus] = useState("");
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        // TODO: finish when spring security is done
+        try {
+            let res = await fetch("http://localhost:8080/", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: 0,
+                    name: data.get('firstName'),
+                    surname: data.get('lastName'),
+                    email: data.get('email'),
+                    hashedPassword: data.get('password'),
+                    country: "",
+                    city: "",
+                    street: "",
+                    zipCode: "",
+                    buildingNumber: 0,
+                    apartmentNumber: 0
+                })
+            });
+            await res.json();
+            if (res.status === 200) {
+                setStatus("success");
+            } else {
+                setStatus("error");
+            }
+        } catch (err) {
+            setStatus("error");
+        }
     };
 
     return (
@@ -57,6 +89,7 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
+                    {status === "error" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="error" sx={{mb: -1}}>Wrong login or password</Alert>}
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
