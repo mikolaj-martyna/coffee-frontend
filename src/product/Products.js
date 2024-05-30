@@ -1,35 +1,44 @@
 import Product from "./Product";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
+import {Alert} from "@mui/material";
+import React, {useEffect, useState} from "react";
 
 export default function Products() {
-    const products = [
-        {
-            id: 1,
-            imageUrl: "https://placehold.co/150",
-            name: "Placeholder",
-            description: "Lorem ipsum",
-            price: 199.99
-        },
-        {
-            id: 2,
-            imageUrl: "https://placehold.co/150",
-            name: "Anomaly",
-            description: "Keine Anung",
-            price: 29.99
-        },
-        {
-            id: 3,
-            imageUrl: "https://placehold.co/150",
-            name: "Hello World",
-            description: "Hi :3",
-            price: 4.99
-        },
-    ]
+    const [status, setStatus] = useState("");
+    const [data, setData] = useState();
+    const [isLoading, setLoading] = useState(true);
 
-    const listOfProducts = products.map(product => {
+    useEffect(() => {
+        const dataFetch = async () => {
+            let res = await fetch("http://localhost:8080/product/get/all", {
+                method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+
+            const json = await res.json();
+            console.log(json);
+
+            if (res.status === 200) {
+                setStatus("success");
+                setData(json);
+                setLoading(false);
+            } else {
+                setStatus("error");
+            }
+        };
+
+        dataFetch();
+    }, []);
+
+    if (isLoading) {
+        return <Alert severity="info">Loading...</Alert>
+    }
+
+    const listOfProducts = data.map(product => {
         return <Product id={product.id} name={product.name} description={product.description} price={product.price}
-                 imageUrl={product.imageUrl}/>
+                        imageUrl={product.imageUrl}/>
     })
 
     return (
