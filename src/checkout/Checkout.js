@@ -30,14 +30,14 @@ function Copyright() {
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
+function getStepContent(step, handleInputChange, formData) {
     switch (step) {
         case 0:
-            return <AddressForm />;
+            return <AddressForm onChange={handleInputChange} />;
         case 1:
-            return <PaymentForm />;
+            return <PaymentForm onChange={handleInputChange} />;
         case 2:
-            return <Review />;
+            return <Review formData={formData} />;
         default:
             throw new Error('Unknown step');
     }
@@ -45,14 +45,38 @@ function getStepContent(step) {
 
 export default function Checkout() {
     const [activeStep, setActiveStep] = React.useState(0);
+    const [formData, setFormData] = React.useState({
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zip: '',
+        country: '',
+        cardName: '',
+        cardNumber: '',
+        expDate: '',
+        cvv: ''
+    });
+
+    const handleInputChange = (name, value) => {
+        setFormData({...formData, [name]: value });
+    };
 
     const handleNext = () => {
+        if (activeStep === steps.length - 1) {
+            handleCheckout()
+        }
+
         setActiveStep(activeStep + 1);
     };
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
+
+    const handleCheckout = () => {
+        // TODO: handle checkout
+    }
 
     return (
         <React.Fragment>
@@ -63,7 +87,6 @@ export default function Checkout() {
                 elevation={0}
                 sx={{
                     position: 'relative',
-                    borderBottom: (t) => `1px solid ${t.palette.divider}`,
                 }}
             >
                 <Toolbar>
@@ -78,13 +101,13 @@ export default function Checkout() {
                         Checkout
                     </Typography>
                     <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-                        {steps.map((label) => (
+                        { steps.map((label) => (
                             <Step key={label}>
                                 <StepLabel>{label}</StepLabel>
                             </Step>
-                        ))}
+                        )) }
                     </Stepper>
-                    {activeStep === steps.length ? (
+                    { activeStep === steps.length ? (
                         <React.Fragment>
                             <Typography variant="h5" gutterBottom>
                                 Thank you for your order.
@@ -97,24 +120,24 @@ export default function Checkout() {
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
-                            {getStepContent(activeStep)}
+                            {getStepContent(activeStep, handleInputChange, formData)}
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                {activeStep !== 0 && (
+                                { activeStep !== 0 && (
                                     <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                                         Back
                                     </Button>
-                                )}
+                                ) }
 
                                 <Button
                                     variant="contained"
                                     onClick={handleNext}
                                     sx={{ mt: 3, ml: 1 }}
                                 >
-                                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                    { activeStep === steps.length - 1 ? 'Place order' : 'Next' }
                                 </Button>
                             </Box>
                         </React.Fragment>
-                    )}
+                    ) }
                 </Paper>
                 <Copyright />
             </Container>
