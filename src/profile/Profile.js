@@ -4,6 +4,7 @@ import {Typography, Box, Button, Alert} from '@mui/material';
 export default function Profile() {
     const [status, setStatus] = useState("");
     const [data, setData] = useState();
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const dataFetch = async () => {
@@ -20,6 +21,7 @@ export default function Profile() {
             if (res.status === 200) {
                 setStatus("success");
                 setData(data);
+                setLoading(false);
             } else {
                 setStatus("error");
             }
@@ -27,6 +29,10 @@ export default function Profile() {
 
         dataFetch();
     }, []);
+
+    if (isLoading) {
+        return <Alert severity="info">Loading...</Alert>
+    }
 
     if (status === "error") {
         return <Alert severity="error">Error getting user data</Alert>

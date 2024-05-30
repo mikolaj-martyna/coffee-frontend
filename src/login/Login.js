@@ -50,7 +50,6 @@ export default function Login() {
             });
 
             let response = await res.json();
-            console.log(res);
 
             if (res.status === 200) {
                 setStatus("success");
@@ -83,7 +82,7 @@ export default function Login() {
                     </Typography>
 
                     {status === "error" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="error" sx={{mb: -1}}>Wrong login or password</Alert>}
-                    {status === "success" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{mb: -1}}>Logged in successfully</Alert>}
+                    {status === "success" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{mb: -1}}>Logged in successfully {localStorage.getItem("token")}</Alert>}
 
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
