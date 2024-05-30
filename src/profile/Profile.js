@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Typography, Box, Button, Alert} from '@mui/material';
 
 export default function Profile() {
     const [status, setStatus] = useState("");
+    const [data, setData] = useState();
 
-    let user = async () => {
-        try {
+    useEffect(() => {
+        const dataFetch = async () => {
             let res = await fetch("http://localhost:8080/user/get", {
                 method: "GET",
                 headers: {
@@ -13,17 +14,19 @@ export default function Profile() {
                 }
             });
 
-            await res.json();
+            const data = await res.json();
+            console.log(data);
 
             if (res.status === 200) {
                 setStatus("success");
+                setData(data);
             } else {
                 setStatus("error");
             }
-        } catch (err) {
-            setStatus("error");
-        }
-    }
+        };
+
+        dataFetch();
+    }, []);
 
     if (status === "error") {
         return <Alert severity="error">Error getting user data</Alert>
@@ -32,20 +35,21 @@ export default function Profile() {
     return (
         <Box sx={{ padding: 4 }}>
             <Typography variant="h4" gutterBottom>
-                { user.name + user.surname }
+                { data["name"] + " " + data["surname"] }
             </Typography>
             <Typography variant="body1" gutterBottom>
-                Software Developer | React Specialist
+                { data["email"] }
             </Typography>
             <Typography variant="body2" color="text.secondary">
-                Bio: Passionate about creating intuitive web applications. Always eager to learn new technologies and frameworks.
+            {/* TODO: Add profile info here */}
             </Typography>
             <Box mt={2}>
                 <Button variant="contained" color="primary">
                     Edit Profile
                 </Button>
                 <Button variant="outlined" sx={{ ml: 2 }}>
-                    View Projects
+                    {/* TODO: add orders page */}
+                    View orders
                 </Button>
             </Box>
         </Box>
