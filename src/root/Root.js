@@ -10,6 +10,12 @@ export default function Root() {
             <Button component={Link} to="/products">Products</Button>
             <Button component={Link} to="/checkout">Checkout</Button>
 
+            {/* Show only if authenticated */}
+            <Button component={Link} to="/profile">Profile</Button>
+
+            {/* Show only if jwt cookie is set */}
+            <Button component={Link} to="/logout">Logout</Button>
+
             <Outlet/>
         </>
     );

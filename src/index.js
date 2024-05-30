@@ -8,6 +8,8 @@ import Login from "./login/Login";
 import Register from "./register/Register";
 import Checkout from "./checkout/Checkout";
 import Products from "./product/Products";
+import Profile from "./profile/Profile";
+import Logout from "./logout/Logout";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
             {
                 path: "products",
                 element: <Products/>
+            },
+            {
+                path: "profile",
+                element: <Profile/>
+            },
+            {
+                path: "logout",
+                element: <Logout/>
             },
         ]
     },
