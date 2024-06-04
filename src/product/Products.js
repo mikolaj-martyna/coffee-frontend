@@ -37,8 +37,11 @@ export default function Products() {
     }
 
     const listOfProducts = data.map(product => {
-        return <Product id={product.id} name={product.name} description={product.description} price={product.price}
-                        imageUrl={product.imageUrl}/>
+        return <Product id={product.id}
+                        name={product.name}
+                        description={product.description}
+                        price={Number.parseFloat(product.price / 100).toFixed(2)}
+                        imageUrl={product.imagePath}/>
     })
 
     return (
