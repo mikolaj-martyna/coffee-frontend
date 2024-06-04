@@ -9,7 +9,6 @@ import Register from "./register/Register";
 import Checkout from "./checkout/Checkout";
 import Products from "./product/Products";
 import Profile from "./profile/Profile";
-import Logout from "./logout/Logout";
 
 const router = createBrowserRouter([
     {
@@ -33,15 +32,11 @@ const router = createBrowserRouter([
                 element: <Profile/>
             },
             {
-                path: "logout",
-                element: <Logout/>
-            },
+                path: "checkout",
+                element: <Checkout/>
+            }
         ]
     },
-    {
-        path: "checkout",
-        element: <Checkout/>
-    }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -11,10 +11,7 @@ export default function Products() {
     useEffect(() => {
         const dataFetch = async () => {
             let res = await fetch("http://localhost:8080/product/get/all", {
-                method: "GET",
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                }
+                method: "GET"
             });
 
             const json = await res.json();

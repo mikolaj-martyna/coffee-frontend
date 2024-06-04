@@ -60,6 +60,8 @@ export default function Login() {
         } catch (err) {
             setStatus("error");
         }
+
+        window.location.reload();
     };
 
     return (
@@ -82,7 +84,7 @@ export default function Login() {
                     </Typography>
 
                     {status === "error" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="error" sx={{mb: -1}}>Wrong login or password</Alert>}
-                    {status === "success" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{mb: -1}}>Logged in successfully {localStorage.getItem("token")}</Alert>}
+                    {status === "success" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{mb: -1}}>Logged in successfully</Alert>}
 
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
