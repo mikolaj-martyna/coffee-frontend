@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Typography, Box, Button, Alert} from '@mui/material';
+import {Typography, Box, Alert} from '@mui/material';
+import Orders from "./Orders";
 
 export default function Profile() {
     const [status, setStatus] = useState("");
@@ -58,13 +59,7 @@ export default function Profile() {
                         {/* TODO: Add profile info here */}
                     </Typography>
                     <Box mt={2}>
-                        <Button variant="contained" color="primary">
-                            Edit Profile
-                        </Button>
-                        <Button variant="outlined" sx={{ml: 2}}>
-                            {/* TODO: add orders page */}
-                            View orders
-                        </Button>
+                        <Orders />
                     </Box>
                 </Box>
                 </>
