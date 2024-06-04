@@ -39,25 +39,36 @@ export default function Profile() {
     }
 
     return (
-        <Box sx={{ padding: 4 }}>
-            <Typography variant="h4" gutterBottom>
-                { data["name"] + " " + data["surname"] }
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-                { data["email"] }
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-            {/* TODO: Add profile info here */}
-            </Typography>
-            <Box mt={2}>
-                <Button variant="contained" color="primary">
-                    Edit Profile
-                </Button>
-                <Button variant="outlined" sx={{ ml: 2 }}>
-                    {/* TODO: add orders page */}
-                    View orders
-                </Button>
-            </Box>
-        </Box>
+        <>
+            {localStorage.getItem("token") === null ?
+                <>
+                    <Typography component="h1" variant="h4" align="center">
+                        Log in to see your profile details
+                    </Typography>
+                </>
+                :
+                <><Box sx={{padding: 4}}>
+                    <Typography variant="h4" gutterBottom>
+                        {data["name"] + " " + data["surname"]}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        {data["email"]}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {/* TODO: Add profile info here */}
+                    </Typography>
+                    <Box mt={2}>
+                        <Button variant="contained" color="primary">
+                            Edit Profile
+                        </Button>
+                        <Button variant="outlined" sx={{ml: 2}}>
+                            {/* TODO: add orders page */}
+                            View orders
+                        </Button>
+                    </Box>
+                </Box>
+                </>
+            }
+        </>
     );
 };
