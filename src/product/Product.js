@@ -20,7 +20,7 @@ export default function Product(product) {
                 </Typography>
             </CardContent>
             <Box display="flex" p={2}>
-                <Typography variant="h6" pr={2}>${product.price}</Typography>
+                <Typography variant="h6" pr={2}>{product.price} zł</Typography>
                 <Button variant="contained" color="primary" component={Link} to="/checkout">
                     Add to cart
                 </Button>
