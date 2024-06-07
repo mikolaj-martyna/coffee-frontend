@@ -4,31 +4,41 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
+import {useEffect, useState} from "react";
+import {Alert} from "@mui/material";
 
 export default function Review({formData}) {
-    const products = [
-        {
-            name: 'Product 1',
-            desc: 'A nice thing',
-            price: '$9.99',
-        },
-        {
-            name: 'Product 2',
-            desc: 'Another thing',
-            price: '$3.45',
-        },
-        {
-            name: 'Product 3',
-            desc: 'Something else',
-            price: '$6.51',
-        },
-        {
-            name: 'Product 4',
-            desc: 'Best thing of all',
-            price: '$14.11',
-        },
-        {name: 'Shipping', desc: '', price: 'Free'},
-    ];
+    const [status, setStatus] = useState("");
+    const [data, setData] = useState();
+    const [isLoading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const dataFetch = async () => {
+            let res = await fetch("http://localhost:8080/cart/get", {
+                method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+
+            const json = await res.json();
+            console.log(json);
+
+            if (res.status === 200) {
+                setStatus("success");
+                setData(json);
+                setLoading(false);
+            } else {
+                setStatus("error");
+            }
+        };
+
+        dataFetch();
+    }, []);
+
+    if (isLoading) {
+        return <Alert severity="info">Loading...</Alert>
+    }
 
     const addresses = [formData["address1"], formData["address2"], formData["city"], formData["zip"], formData["country"]];
     const payments = [
@@ -41,22 +51,25 @@ export default function Review({formData}) {
         {name: 'Expiry date', detail: formData["expDate"]},
     ];
 
+    let cartTotal = 0
+    data.map((product) => cartTotal += product.price)
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
                 Order summary
             </Typography>
             <List disablePadding>
-                {products.map((product) => (
+                {data.map((product) => (
                     <ListItem key={product.name} sx={{py: 1, px: 0}}>
-                        <ListItemText primary={product.name} secondary={product.desc}/>
-                        <Typography variant="body2">{product.price}</Typography>
+                        <ListItemText primary={product.name} secondary={product.description}/>
+                        <Typography variant="body2">{Number.parseFloat(product.price / 100).toFixed(2)} zł</Typography>
                     </ListItem>
                 ))}
                 <ListItem sx={{py: 1, px: 0}}>
                     <ListItemText primary="Total"/>
                     <Typography variant="subtitle1" sx={{fontWeight: 700}}>
-                        $34.06
+                        {Number.parseFloat(cartTotal / 100).toFixed(2)} zł
                     </Typography>
                 </ListItem>
             </List>
