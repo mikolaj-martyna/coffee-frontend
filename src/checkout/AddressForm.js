@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
-export default function AddressForm({ onChange }) {
+export default function AddressForm({ onChange, formData }) {
     const handleInputChange = (event) => {
         onChange(event.target.name, event.target.value);
     };
@@ -23,6 +23,7 @@ export default function AddressForm({ onChange }) {
                         fullWidth
                         autoComplete="shipping address-line1"
                         variant="standard"
+                        defaultValue={formData.address1}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -34,6 +35,7 @@ export default function AddressForm({ onChange }) {
                         fullWidth
                         autoComplete="shipping address-line2"
                         variant="standard"
+                        defaultValue={formData.address2}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -46,6 +48,7 @@ export default function AddressForm({ onChange }) {
                         fullWidth
                         autoComplete="shipping address-level2"
                         variant="standard"
+                        defaultValue={formData.city}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -56,6 +59,7 @@ export default function AddressForm({ onChange }) {
                         label="State/Province/Region"
                         fullWidth
                         variant="standard"
+                        defaultValue={formData.state}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -68,6 +72,7 @@ export default function AddressForm({ onChange }) {
                         fullWidth
                         autoComplete="shipping postal-code"
                         variant="standard"
+                        defaultValue={formData.zip}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -80,15 +85,10 @@ export default function AddressForm({ onChange }) {
                         fullWidth
                         autoComplete="shipping country"
                         variant="standard"
+                        defaultValue={formData.country}
                         onChange={handleInputChange}
                     />
                 </Grid>
-                {/*<Grid item xs={12}>*/}
-                {/*    <FormControlLabel*/}
-                {/*        control={<Checkbox color="secondary" name="saveAddress" value="yes" />}*/}
-                {/*        label="Use this address for payment details"*/}
-                {/*    />*/}
-                {/*</Grid>*/}
             </Grid>
         </React.Fragment>
     );

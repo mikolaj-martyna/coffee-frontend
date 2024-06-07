@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-export default function PaymentForm({ onChange }) {
+export default function PaymentForm({ onChange, formData }) {
     const handleInputChange = (event) => {
         onChange(event.target.name, event.target.value);
     };
@@ -23,6 +23,7 @@ export default function PaymentForm({ onChange }) {
                         fullWidth
                         autoComplete="cc-name"
                         variant="standard"
+                        defaultValue={formData.cardName}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -35,6 +36,7 @@ export default function PaymentForm({ onChange }) {
                         fullWidth
                         autoComplete="cc-number"
                         variant="standard"
+                        defaultValue={formData.cardNumber}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -47,6 +49,7 @@ export default function PaymentForm({ onChange }) {
                         fullWidth
                         autoComplete="cc-exp"
                         variant="standard"
+                        defaultValue={formData.expDate}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -60,15 +63,10 @@ export default function PaymentForm({ onChange }) {
                         fullWidth
                         autoComplete="cc-csc"
                         variant="standard"
+                        defaultValue={formData.cvv}
                         onChange={handleInputChange}
                     />
                 </Grid>
-                {/*<Grid item xs={12}>*/}
-                {/*    <FormControlLabel*/}
-                {/*        control={<Checkbox color="secondary" name="saveCard" value="yes" />}*/}
-                {/*        label="Remember credit card details for next time"*/}
-                {/*    />*/}
-                {/*</Grid>*/}
             </Grid>
         </React.Fragment>
     );

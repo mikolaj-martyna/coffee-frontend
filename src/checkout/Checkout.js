@@ -33,9 +33,9 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 function getStepContent(step, handleInputChange, formData) {
     switch (step) {
         case 0:
-            return <AddressForm onChange={handleInputChange}/>;
+            return <AddressForm onChange={handleInputChange} formData={formData}/>;
         case 1:
-            return <PaymentForm onChange={handleInputChange}/>;
+            return <PaymentForm onChange={handleInputChange} formData={formData}/>;
         case 2:
             return <Review formData={formData}/>;
         default:
