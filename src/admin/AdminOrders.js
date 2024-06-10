@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import {DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -7,6 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import {MenuItem} from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 const OrderStatus = {
     AWAITING_PAYMENT: 'AWAITING_PAYMENT',
@@ -50,11 +51,24 @@ export default function AdminOrders() {
     }, []);
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
-        { field: 'customerName', headerName: 'Customer Name', width: 150 },
-        { field: 'date', headerName: 'Order Date', width: 180 },
-        { field: 'items', headerName: 'Items', width: 250 },
-        { field: 'status', headerName: 'Status', width: 120 },
+        {field: 'id', headerName: 'ID', width: 90},
+        {field: 'userId', headerName: 'Customer id', width: 150},
+        {field: 'date', headerName: 'Order Date', width: 180,
+            renderCell: (params) => {
+                const date = new Date(
+                    params.row.date[0], // Year
+                    params.row.date[1] - 1, // Month (JavaScript months are 0-indexed)
+                    params.row.date[2], // Day
+                    params.row.date[3], // Hour
+                    params.row.date[4], // Minute
+                    params.row.date[5], // Second
+                );
+
+                // Format the date as a string
+                return date.toLocaleDateString('pl-PL') + ' ' + date.toLocaleTimeString('pl-PL');
+            },},
+        {field: 'items', headerName: 'Items', width: 250},
+        {field: 'status', headerName: 'Status', width: 120},
         {
             field: 'actions',
             headerName: 'Actions',
@@ -107,33 +121,47 @@ export default function AdminOrders() {
         handleEditClose();
     };
 
-    if (isLoading) {
-        return <CircularProgress />;
-    }
-
     return (
-        <div style={{ height: 800, width: '100%' }}>
-            <DataGrid rows={data} columns={columns} pageSize={5} />
-            <Dialog open={openEdit} onClose={handleEditClose}>
-                <DialogTitle>Edit Order</DialogTitle>
-                <form onSubmit={handleEditSubmit}>
-                    {/* Form fields for editing order */}
-                    <TextField defaultValue={selectedOrder.customerName} margin="dense" id="customerName" label="Customer Name" fullWidth />
-                    <TextField defaultValue={selectedOrder.date} margin="dense" id="date" label="Date" type="date" fullWidth />
-                    <TextField defaultValue={selectedOrder.items} margin="dense" id="items" label="Items" fullWidth />
-                    <TextField select defaultValue={selectedOrder.status} margin="dense" id="status" label="Status" fullWidth>
-                        <MenuItem value={OrderStatus.AWAITING_PAYMENT}>Awaiting Payment</MenuItem>
-                        <MenuItem value={OrderStatus.PAID}>Paid</MenuItem>
-                        <MenuItem value={OrderStatus.PREPARATION}>Preparation</MenuItem>
-                        <MenuItem value={OrderStatus.SHIPPING}>Shipping</MenuItem>
-                        <MenuItem value={OrderStatus.DELIVERED}>Delivered</MenuItem>
-                    </TextField>
-                    <DialogActions>
-                        <Button onClick={handleEditClose}>Cancel</Button>
-                        <Button type="submit">Update Order</Button>
-                    </DialogActions>
-                </form>
-            </Dialog>
-        </div>
-    );
+        <>
+            {localStorage.getItem("token") === null ?
+                <>
+                    <Typography component="h1" variant="h4" align="center">
+                        Log in as admin to see orders
+                    </Typography>
+                </>
+                :
+                <div style={{height: 800, width: '100%'}}>
+                    <DataGrid rows={data} columns={columns} pageSize={5}/>
+                    <Dialog open={openEdit} onClose={handleEditClose}>
+                        <DialogTitle>Edit Order</DialogTitle>
+                        <form onSubmit={handleEditSubmit}>
+                            {/* Form fields for editing order */}
+                            <TextField defaultValue={selectedOrder.userId} margin="dense" id="userId"
+                                       label="Customer id"
+                                       fullWidth/>
+                            <TextField defaultValue={selectedOrder.date} margin="dense" id="date" label="Date"
+                                       type="date"
+                                       fullWidth/>
+                            <TextField defaultValue={selectedOrder.items} margin="dense" id="items"
+                                       label="Items"
+                                       fullWidth/>
+                            <TextField select defaultValue={selectedOrder.status} margin="dense" id="status"
+                                       label="Status"
+                                       fullWidth>
+                                <MenuItem value={OrderStatus.AWAITING_PAYMENT}>Awaiting Payment</MenuItem>
+                                <MenuItem value={OrderStatus.PAID}>Paid</MenuItem>
+                                <MenuItem value={OrderStatus.PREPARATION}>Preparation</MenuItem>
+                                <MenuItem value={OrderStatus.SHIPPING}>Shipping</MenuItem>
+                                <MenuItem value={OrderStatus.DELIVERED}>Delivered</MenuItem>
+                            </TextField>
+                            <DialogActions>
+                                <Button onClick={handleEditClose}>Cancel</Button>
+                                <Button type="submit">Update Order</Button>
+                            </DialogActions>
+                        </form>
+                    </Dialog>
+                </div>
+            }
+        </>
+    )
 }
