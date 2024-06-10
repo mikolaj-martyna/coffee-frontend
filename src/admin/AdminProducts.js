@@ -77,6 +77,9 @@ export default function AdminProductsPage() {
         try {
             await fetch(`http://localhost:8080/product/delete/${id}`, {
                 method: "DELETE",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
             });
             window.location.reload();
         } catch (error) {
@@ -86,7 +89,46 @@ export default function AdminProductsPage() {
 
     const handleAddSubmit = async (event) => {
         event.preventDefault();
-        // TODO: add a new product
+
+        try {
+            let res = await fetch("http://localhost:8080/product/add", {
+                method: "POST",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify([{
+                    id: 0,
+                    name: document.getElementById('name').value,
+                    category: document.getElementById('category').value,
+                    description: document.getElementById('description').value,
+                    price: parseInt(document.getElementById('price').value),
+                    imagePath: document.getElementById('imagePath').value
+                }])
+            });
+
+            await res.json();
+            if (res.ok) {
+                const fetchRes = await fetch("http://localhost:8080/product/get/all", {
+                    method: "GET",
+                });
+
+                const json = await fetchRes.json();
+                if (fetchRes.ok) {
+                    setStatus("success");
+                    setData(json);
+                    setLoading(false);
+                } else {
+                    setStatus("error");
+                }
+            } else {
+                setStatus("error");
+            }
+        } catch (error) {
+            console.error(error);
+            setStatus("error");
+        }
+
         handleAddClose();
     };
 
@@ -110,9 +152,10 @@ export default function AdminProductsPage() {
                 <DialogTitle>Add New Product</DialogTitle>
                 <form onSubmit={handleAddSubmit}>
                     <TextField margin="dense" id="name" label="Name" required fullWidth/>
+                    <TextField margin="dense" id="category" label="Category" fullWidth/>
                     <TextField margin="dense" id="description" label="Description" fullWidth/>
                     <TextField margin="dense" id="price" label="Price" type="number" required fullWidth/>
-                    <TextField margin="dense" id="imageUrl" label="Image URL" fullWidth/>
+                    <TextField margin="dense" id="imagePath" label="Image path" fullWidth/>
                     <DialogActions>
                         <Button onClick={handleAddClose}>Cancel</Button>
                         <Button type="submit">Add Product</Button>
@@ -122,9 +165,10 @@ export default function AdminProductsPage() {
             <Dialog open={openEdit} onClose={handleEditClose}>
                 <DialogTitle>Edit Product</DialogTitle>
                 <form onSubmit={handleEditSubmit}>
-                    {/* Form fields for editing product */}
                     <TextField defaultValue={selectedProduct.name} margin="dense" id="name" label="Name" required
                                fullWidth/>
+                    <TextField defaultValue={selectedProduct.category} margin="dense" id="category"
+                               label="Description" fullWidth/>
                     <TextField defaultValue={selectedProduct.description} margin="dense" id="description"
                                label="Description" fullWidth/>
                     <TextField defaultValue={selectedProduct.price} margin="dense" id="price" label="Price"
