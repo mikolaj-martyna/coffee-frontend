@@ -20,7 +20,6 @@ export default function AdminOrders() {
     const [status, setStatus] = React.useState("");
     const [data, setData] = React.useState([]);
     const [isLoading, setLoading] = React.useState(true);
-    const [openAdd, setOpenAdd] = React.useState(false);
     const [openEdit, setOpenEdit] = React.useState(false);
     const [selectedOrder, setSelectedOrder] = React.useState({});
 
@@ -65,8 +64,8 @@ export default function AdminOrders() {
 
                 return date.toLocaleDateString('pl-PL') + ' ' + date.toLocaleTimeString('pl-PL');
             },},
-        {field: 'items', headerName: 'Items', width: 250},
-        {field: 'status', headerName: 'Status', width: 120},
+        {field: 'productIds', headerName: 'Product IDs', width: 250},
+        {field: 'status', headerName: 'Status', width: 200},
         {
             field: 'actions',
             headerName: 'Actions',
@@ -84,9 +83,6 @@ export default function AdminOrders() {
         },
     ];
 
-    const handleAddOpen = () => setOpenAdd(true);
-    const handleAddClose = () => setOpenAdd(false);
-
     const handleEditOpen = (order) => {
         setSelectedOrder(order);
         setOpenEdit(true);
@@ -98,6 +94,9 @@ export default function AdminOrders() {
         try {
             await fetch(`http://localhost:8080/order/delete/${id}`, {
                 method: "DELETE",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
             });
             window.location.reload();
         } catch (error) {
