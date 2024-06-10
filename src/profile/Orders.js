@@ -56,7 +56,7 @@ export default function Orders() {
                         <TableCell align="right">{order.status}</TableCell>
                         <TableCell
                             align="right">{`${String(order.date[2]).padStart(2, '0')}.${String(order.date[1]).padStart(2, '0')}.${order.date[0]} ${order.date[3]}:${String(order.date[4]).padStart(2, '0')}`}</TableCell>
-                        <TableCell align="right">{order.productIds}</TableCell>
+                        <TableCell align="right">{order.productIds.map(product => `[${product}] `)}</TableCell>
                     </TableRow>))}
             </TableBody>
         </Table>
