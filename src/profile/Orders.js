@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {
     Alert, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography
 } from '@mui/material';
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Orders() {
     const [status, setStatus] = useState("");
@@ -33,7 +34,7 @@ export default function Orders() {
     }, []);
 
     if (isLoading) {
-        return <Alert severity="info">Loading...</Alert>
+        return <CircularProgress />;
     }
 
     return (<TableContainer>

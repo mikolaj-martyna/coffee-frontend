@@ -1,8 +1,9 @@
 import {Outlet} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {Link} from 'react-router-dom';
+import Typography from "@mui/material/Typography";
 
-export default function Root() {
+export default function Admin() {
     const Logout = () => {
         localStorage.removeItem("token");
 
@@ -13,8 +14,9 @@ export default function Root() {
 
     return (
         <>
-            <Button component={Link} to="/products">Products</Button>
-            <Button component={Link} to="/checkout">Checkout</Button>
+            <Typography variant="h5">Admin panel</Typography>
+            <Button component={Link} to="/admin/products">Products</Button>
+            <Button component={Link} to="/admin/orders">Orders</Button>
 
             {localStorage.getItem("token") === null ?
                 <>
@@ -23,7 +25,6 @@ export default function Root() {
                 </>
                 :
                 <>
-                    <Button component={Link} to="/profile">Profile</Button>
                     <Button component={Link} onClick={Logout}>Logout</Button>
                 </>
             }

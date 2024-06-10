@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Typography, Box, Alert} from '@mui/material';
 import Orders from "./Orders";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Profile() {
     const [status, setStatus] = useState("");
@@ -32,7 +33,7 @@ export default function Profile() {
     }, []);
 
     if (isLoading) {
-        return <Alert severity="info">Loading...</Alert>
+        return <CircularProgress />;
     }
 
     if (status === "error") {

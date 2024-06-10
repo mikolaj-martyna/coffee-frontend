@@ -9,6 +9,9 @@ import Register from "./register/Register";
 import Checkout from "./checkout/Checkout";
 import Products from "./product/Products";
 import Profile from "./profile/Profile";
+import Admin from "./admin/Admin";
+import AdminProducts from "./admin/AdminProducts";
+import AdminOrders from "./admin/AdminOrders";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +40,20 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: "/admin",
+        element: <Admin/>,
+        children: [
+            {
+                path: "/admin/products",
+                element: <AdminProducts/>
+            },
+            {
+                path: "/admin/orders",
+                element: <AdminOrders/>
+            }
+        ]
+    }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

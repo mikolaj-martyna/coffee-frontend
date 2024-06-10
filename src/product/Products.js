@@ -2,6 +2,7 @@ import Product from "./Product";
 import Box from "@mui/material/Box";
 import {Alert} from "@mui/material";
 import React, {useEffect, useState} from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Products() {
     const [status, setStatus] = useState("");
@@ -30,7 +31,7 @@ export default function Products() {
     }, []);
 
     if (isLoading) {
-        return <Alert severity="info">Loading...</Alert>
+        return <CircularProgress />;
     }
 
     const listOfProducts = data.map(product => {
