@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import CircularProgress from '@mui/material/CircularProgress';
 import {MenuItem} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
@@ -56,15 +55,14 @@ export default function AdminOrders() {
         {field: 'date', headerName: 'Order Date', width: 180,
             renderCell: (params) => {
                 const date = new Date(
-                    params.row.date[0], // Year
-                    params.row.date[1] - 1, // Month (JavaScript months are 0-indexed)
-                    params.row.date[2], // Day
-                    params.row.date[3], // Hour
-                    params.row.date[4], // Minute
-                    params.row.date[5], // Second
+                    params.row.date[0],
+                    params.row.date[1] - 1,
+                    params.row.date[2],
+                    params.row.date[3],
+                    params.row.date[4],
+                    params.row.date[5],
                 );
 
-                // Format the date as a string
                 return date.toLocaleDateString('pl-PL') + ' ' + date.toLocaleTimeString('pl-PL');
             },},
         {field: 'items', headerName: 'Items', width: 250},
@@ -107,17 +105,9 @@ export default function AdminOrders() {
         }
     };
 
-    const handleAddSubmit = async (event) => {
-        event.preventDefault();
-        // Implement the logic to add a new order
-        // This could involve sending a POST request to your backend
-        handleAddClose();
-    };
-
     const handleEditSubmit = async (event) => {
         event.preventDefault();
-        // Implement the logic to update the selected order
-        // This could involve sending a PUT/PATCH request to your backend
+        // TODO: update the selected order
         handleEditClose();
     };
 
@@ -135,7 +125,6 @@ export default function AdminOrders() {
                     <Dialog open={openEdit} onClose={handleEditClose}>
                         <DialogTitle>Edit Order</DialogTitle>
                         <form onSubmit={handleEditSubmit}>
-                            {/* Form fields for editing order */}
                             <TextField defaultValue={selectedOrder.userId} margin="dense" id="userId"
                                        label="Customer id"
                                        fullWidth/>

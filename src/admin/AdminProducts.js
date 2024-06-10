@@ -78,7 +78,7 @@ export default function AdminProductsPage() {
             await fetch(`http://localhost:8080/product/delete/${id}`, {
                 method: "DELETE",
             });
-            window.location.reload(); // Refresh the page after deletion
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }
@@ -86,23 +86,19 @@ export default function AdminProductsPage() {
 
     const handleAddSubmit = async (event) => {
         event.preventDefault();
-        // Implement the logic to add a new product
-        // This could involve sending a POST request to your backend
+        // TODO: add a new product
         handleAddClose();
     };
 
     const handleEditSubmit = async (event) => {
         event.preventDefault();
-        // Implement the logic to update the selected product
-        // This could involve sending a PUT/PATCH request to your backend
+        // TODO: update the selected product
         handleEditClose();
     };
 
     if (isLoading) {
         return <CircularProgress/>;
     }
-
-
 
     return (
         <div style={{height: 800, width: '100%'}}>
@@ -113,7 +109,6 @@ export default function AdminProductsPage() {
             <Dialog open={openAdd} onClose={handleAddClose}>
                 <DialogTitle>Add New Product</DialogTitle>
                 <form onSubmit={handleAddSubmit}>
-                    {/* Add form fields for new product */}
                     <TextField margin="dense" id="name" label="Name" required fullWidth/>
                     <TextField margin="dense" id="description" label="Description" fullWidth/>
                     <TextField margin="dense" id="price" label="Price" type="number" required fullWidth/>
