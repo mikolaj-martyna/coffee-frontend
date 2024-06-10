@@ -106,13 +106,32 @@ export default function AdminOrders() {
 
     const handleEditSubmit = async (event) => {
         event.preventDefault();
-        // TODO: update the selected order
+
+        try {
+            await fetch(`http://localhost:8080/order/update`, {
+                method: "PUT",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: selectedOrder.id,
+                    status: status,
+                    userId: selectedOrder.userId,
+                    productIds: []
+                })
+            });
+            window.location.reload();
+        } catch (error) {
+            console.error(error);
+        }
+
         handleEditClose();
     };
 
     return (
         <>
-            {localStorage.getItem("token") === null ?
+            {localStorage.getItem("token") === null?
                 <>
                     <Typography component="h1" variant="h4" align="center">
                         Log in as admin to see orders
@@ -133,7 +152,7 @@ export default function AdminOrders() {
                             <TextField defaultValue={selectedOrder.items} margin="dense" id="items"
                                        label="Items"
                                        fullWidth/>
-                            <TextField select defaultValue={selectedOrder.status} margin="dense" id="status"
+                            <TextField select onChange={(e) => setStatus(e.target.value)} defaultValue={selectedOrder.status} margin="dense" id="status"
                                        label="Status"
                                        fullWidth>
                                 <MenuItem value={OrderStatus.AWAITING_PAYMENT}>Awaiting Payment</MenuItem>
