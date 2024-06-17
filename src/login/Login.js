@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,9 +10,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Link as RouterLink} from "react-router-dom";
-import {useState} from "react";
 import {Alert} from "@mui/material";
 import {Check as CheckIcon} from "@mui/icons-material";
 
@@ -38,7 +38,7 @@ export default function Login() {
         const data = new FormData(event.currentTarget);
 
         try {
-            let res = await fetch("http://localhost:8080/auth/login", {
+            let res = await fetch("api/auth/login", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ export default function Login() {
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -76,17 +76,21 @@ export default function Login() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
 
-                    {status === "error" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="error" sx={{mb: -1}}>Wrong login or password</Alert>}
-                    {status === "success" && <Alert component="h4" icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{mb: -1}}>Logged in successfully</Alert>}
+                    {status === "error" &&
+                        <Alert component="h4" icon={<CheckIcon fontSize="inherit"/>} severity="error" sx={{mb: -1}}>Wrong
+                            login or password</Alert>}
+                    {status === "success" &&
+                        <Alert component="h4" icon={<CheckIcon fontSize="inherit"/>} severity="success" sx={{mb: -1}}>Logged
+                            in successfully</Alert>}
 
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
@@ -111,7 +115,7 @@ export default function Login() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{mt: 3, mb: 2}}
                         >
                             Sign In
                         </Button>
@@ -124,7 +128,7 @@ export default function Login() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                <Copyright sx={{mt: 8, mb: 4}}/>
             </Container>
         </ThemeProvider>
     );

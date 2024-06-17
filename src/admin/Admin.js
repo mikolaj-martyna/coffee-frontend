@@ -1,6 +1,5 @@
-import {Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import Button from "@mui/material/Button";
-import {Link} from 'react-router-dom';
 import Typography from "@mui/material/Typography";
 
 export default function Admin() {

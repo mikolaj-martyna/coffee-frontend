@@ -18,7 +18,7 @@ export default function AdminProductsPage() {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                let res = await fetch("http://localhost:8080/product/get/all", {
+                let res = await fetch("api/product/get/all", {
                     method: "GET",
                 });
                 const json = await res.json();
@@ -75,7 +75,7 @@ export default function AdminProductsPage() {
 
     const handleDelete = async (id) => {
         try {
-            await fetch(`http://localhost:8080/product/delete/${id}`, {
+            await fetch(`api/product/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -91,7 +91,7 @@ export default function AdminProductsPage() {
         event.preventDefault();
 
         try {
-            let res = await fetch("http://localhost:8080/product/add", {
+            let res = await fetch("api/product/add", {
                 method: "POST",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -109,7 +109,7 @@ export default function AdminProductsPage() {
 
             await res.json();
             if (res.ok) {
-                const fetchRes = await fetch("http://localhost:8080/product/get/all", {
+                const fetchRes = await fetch("api/product/get/all", {
                     method: "GET",
                 });
 

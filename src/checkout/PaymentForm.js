@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-export default function PaymentForm({ onChange, formData }) {
+export default function PaymentForm({onChange, formData}) {
     const handleInputChange = (event) => {
         onChange(event.target.name, event.target.value);
     };

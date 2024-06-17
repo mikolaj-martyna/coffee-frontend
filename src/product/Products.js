@@ -1,6 +1,5 @@
 import Product from "./Product";
 import Box from "@mui/material/Box";
-import {Alert} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -11,7 +10,7 @@ export default function Products() {
 
     useEffect(() => {
         const dataFetch = async () => {
-            let res = await fetch("http://localhost:8080/product/get/all", {
+            let res = await fetch("api/product/get/all", {
                 method: "GET"
             });
 
@@ -31,7 +30,7 @@ export default function Products() {
     }, []);
 
     if (isLoading) {
-        return <CircularProgress />;
+        return <CircularProgress/>;
     }
 
     const listOfProducts = data.map(product => {

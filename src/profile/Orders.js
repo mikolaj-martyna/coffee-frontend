@@ -1,8 +1,6 @@
 // Import necessary MUI components
 import React, {useEffect, useState} from 'react';
-import {
-    Alert, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography
-} from '@mui/material';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material';
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Orders() {
@@ -12,7 +10,7 @@ export default function Orders() {
 
     useEffect(() => {
         const dataFetch = async () => {
-            let res = await fetch("http://localhost:8080/order/get/user", {
+            let res = await fetch("api/order/get/user", {
                 method: "GET", headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
@@ -34,7 +32,7 @@ export default function Orders() {
     }, []);
 
     if (isLoading) {
-        return <CircularProgress />;
+        return <CircularProgress/>;
     }
 
     return (<TableContainer>

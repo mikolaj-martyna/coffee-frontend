@@ -26,7 +26,7 @@ export default function AdminOrders() {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                let res = await fetch("http://localhost:8080/order/get/all", {
+                let res = await fetch("api/order/get/all", {
                     method: "GET",
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -51,7 +51,8 @@ export default function AdminOrders() {
     const columns = [
         {field: 'id', headerName: 'ID', width: 90},
         {field: 'userId', headerName: 'Customer id', width: 150},
-        {field: 'date', headerName: 'Order Date', width: 180,
+        {
+            field: 'date', headerName: 'Order Date', width: 180,
             renderCell: (params) => {
                 const date = new Date(
                     params.row.date[0],
@@ -63,7 +64,8 @@ export default function AdminOrders() {
                 );
 
                 return date.toLocaleDateString('pl-PL') + ' ' + date.toLocaleTimeString('pl-PL');
-            },},
+            },
+        },
         {field: 'productIds', headerName: 'Product IDs', width: 250},
         {field: 'status', headerName: 'Status', width: 200},
         {
@@ -92,7 +94,7 @@ export default function AdminOrders() {
 
     const handleDelete = async (id) => {
         try {
-            await fetch(`http://localhost:8080/order/delete/${id}`, {
+            await fetch(`api/order/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -108,7 +110,7 @@ export default function AdminOrders() {
         event.preventDefault();
 
         try {
-            await fetch(`http://localhost:8080/order/update`, {
+            await fetch(`api/order/update`, {
                 method: "PUT",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -131,7 +133,7 @@ export default function AdminOrders() {
 
     return (
         <>
-            {localStorage.getItem("token") === null?
+            {localStorage.getItem("token") === null ?
                 <>
                     <Typography component="h1" variant="h4" align="center">
                         Log in as admin to see orders
@@ -152,7 +154,8 @@ export default function AdminOrders() {
                             <TextField defaultValue={selectedOrder.items} margin="dense" id="items"
                                        label="Items"
                                        fullWidth/>
-                            <TextField select onChange={(e) => setStatus(e.target.value)} defaultValue={selectedOrder.status} margin="dense" id="status"
+                            <TextField select onChange={(e) => setStatus(e.target.value)}
+                                       defaultValue={selectedOrder.status} margin="dense" id="status"
                                        label="Status"
                                        fullWidth>
                                 <MenuItem value={OrderStatus.AWAITING_PAYMENT}>Awaiting Payment</MenuItem>

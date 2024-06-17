@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Typography, Box, Alert} from '@mui/material';
+import {Alert, Box, Typography} from '@mui/material';
 import Orders from "./Orders";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -10,7 +10,7 @@ export default function Profile() {
 
     useEffect(() => {
         const dataFetch = async () => {
-            let res = await fetch("http://localhost:8080/user/get", {
+            let res = await fetch("api/user/get", {
                 method: "GET",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -33,7 +33,7 @@ export default function Profile() {
     }, []);
 
     if (isLoading) {
-        return <CircularProgress />;
+        return <CircularProgress/>;
     }
 
     if (status === "error") {
@@ -60,7 +60,7 @@ export default function Profile() {
                         {/* TODO: Add profile info here */}
                     </Typography>
                     <Box mt={2}>
-                        <Orders />
+                        <Orders/>
                     </Box>
                 </Box>
                 </>

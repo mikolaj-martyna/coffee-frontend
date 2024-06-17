@@ -1,9 +1,7 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
+import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -12,10 +10,7 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
 import Review from './Review';
-import {useState} from "react";
-import {redirect} from "react-router-dom";
 
 function Copyright() {
     return (
@@ -79,7 +74,7 @@ export default function Checkout() {
     };
 
     const handleCheckout = async (event) => {
-        await fetch("http://localhost:8080/user/edit", {
+        await fetch("api/user/edit", {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +95,7 @@ export default function Checkout() {
 
         // TODO: update card info here
 
-        let res = await fetch("http://localhost:8080/order/create", {
+        let res = await fetch("api/order/create", {
             method: "POST",
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),

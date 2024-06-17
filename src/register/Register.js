@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,7 +14,6 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Link as RouterLink} from 'react-router-dom';
 import {Alert} from "@mui/material";
 import {Check as CheckIcon} from "@mui/icons-material";
-import {useState} from "react";
 
 function Copyright(props) {
     return (
@@ -38,7 +38,7 @@ export default function Register() {
         const data = new FormData(event.currentTarget);
 
         try {
-            let res = await fetch("http://localhost:8080/user/create", {
+            let res = await fetch("api/user/create", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,10 +1,10 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
-import {useEffect, useState} from "react";
 import {Alert} from "@mui/material";
 
 export default function Review({formData}) {
@@ -14,7 +14,7 @@ export default function Review({formData}) {
 
     useEffect(() => {
         const dataFetch = async () => {
-            let res = await fetch("http://localhost:8080/cart/get", {
+            let res = await fetch("api/cart/get", {
                 method: "GET",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')

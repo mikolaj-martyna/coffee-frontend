@@ -1,6 +1,6 @@
 // src/pages/ProductPage.jsx
 import React, {useState} from 'react';
-import {Typography, Box, Card, CardMedia, CardContent, Button} from '@mui/material';
+import {Box, Button, Card, CardContent, CardMedia, Typography} from '@mui/material';
 
 export default function Product(product) {
     const [status, setStatus] = useState("");
@@ -24,7 +24,7 @@ export default function Product(product) {
             <Box display="flex" p={2}>
                 <Typography variant="h6" pr={2}>{product.price} zł</Typography>
                 <Button variant="contained" color="primary" onClick={async () => {
-                    await fetch("http://localhost:8080/cart/add", {
+                    await fetch("api/cart/add", {
                         method: "POST",
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('token'),
