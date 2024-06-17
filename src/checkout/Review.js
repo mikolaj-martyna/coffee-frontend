@@ -22,7 +22,6 @@ export default function Review({formData}) {
             });
 
             const json = await res.json();
-            console.log(json);
 
             if (res.status === 200) {
                 setStatus("success");

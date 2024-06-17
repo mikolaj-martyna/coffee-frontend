@@ -15,6 +15,7 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import {useState} from "react";
+import {redirect} from "react-router-dom";
 
 function Copyright() {
     return (
@@ -78,7 +79,7 @@ export default function Checkout() {
 
     const handleCheckout = async (event) => {
         await fetch("http://localhost:8080/user/edit", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -101,10 +102,23 @@ export default function Checkout() {
         await fetch("http://localhost:8080/order/create", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         });
+
+        let res = await fetch("http://localhost:8080/payment", {
+            method: "POST",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+
+        let json = await res.json();
+        console.log("response body " + json["url"]);
+
+        window.location.replace(json["url"])
     };
 
     return (
