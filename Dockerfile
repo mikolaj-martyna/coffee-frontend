@@ -16,7 +16,7 @@ RUN npm run build
 FROM nginx:stable-alpine AS prod
 COPY --from=build /app/build /usr/share/nginx/html
 
-COPY ./config/lorepaint.conf /etc/nginx/conf.d/default.conf
+COPY ./config/.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
