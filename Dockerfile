@@ -2,7 +2,7 @@ FROM node:20.6 AS build
 
 WORKDIR /app
 
-ENV NODE_ENV=production
+ENV NODE_ENV=prod
 
 COPY package.json .
 COPY package-lock.json .
