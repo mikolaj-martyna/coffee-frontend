@@ -40,15 +40,15 @@ export default function Review({formData}) {
     }
 
     const addresses = [formData["address1"], formData["address2"], formData["city"], formData["zip"], formData["country"]];
-    const payments = [
-        {name: 'Card type', detail: 'Visa'},
-        {name: 'Card holder', detail: formData["cardName"]},
-        {
-            name: 'Card number',
-            detail: formData["cardNumber"].substring(0, 4) + " **** " + formData["cardNumber"].substring(formData["cardNumber"].length - 4, formData["cardNumber"].length)
-        },
-        {name: 'Expiry date', detail: formData["expDate"]},
-    ];
+    // const payments = [
+    //     {name: 'Card type', detail: 'Visa'},
+    //     {name: 'Card holder', detail: formData["cardName"]},
+    //     {
+    //         name: 'Card number',
+    //         detail: formData["cardNumber"].substring(0, 4) + " **** " + formData["cardNumber"].substring(formData["cardNumber"].length - 4, formData["cardNumber"].length)
+    //     },
+    //     {name: 'Expiry date', detail: formData["expDate"]},
+    // ];
 
     let cartTotal = 0
     data.map((product) => cartTotal += product.price)
@@ -80,23 +80,23 @@ export default function Review({formData}) {
                     <Typography gutterBottom>{formData["name"] + " " + formData["surname"]}</Typography>
                     <Typography gutterBottom>{addresses.join(', ')}</Typography>
                 </Grid>
-                <Grid item container direction="column" xs={12} sm={6}>
-                    <Typography variant="h6" gutterBottom sx={{mt: 2}}>
-                        Payment details
-                    </Typography>
-                    <Grid container>
-                        {payments.map((payment) => (
-                            <React.Fragment key={payment.name}>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.name}</Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.detail}</Typography>
-                                </Grid>
-                            </React.Fragment>
-                        ))}
-                    </Grid>
-                </Grid>
+                {/*<Grid item container direction="column" xs={12} sm={6}>*/}
+                {/*    <Typography variant="h6" gutterBottom sx={{mt: 2}}>*/}
+                {/*        Payment details*/}
+                {/*    </Typography>*/}
+                {/*    <Grid container>*/}
+                {/*        {payments.map((payment) => (*/}
+                {/*            <React.Fragment key={payment.name}>*/}
+                {/*                <Grid item xs={6}>*/}
+                {/*                    <Typography gutterBottom>{payment.name}</Typography>*/}
+                {/*                </Grid>*/}
+                {/*                <Grid item xs={6}>*/}
+                {/*                    <Typography gutterBottom>{payment.detail}</Typography>*/}
+                {/*                </Grid>*/}
+                {/*            </React.Fragment>*/}
+                {/*        ))}*/}
+                {/*    </Grid>*/}
+                {/*</Grid>*/}
             </Grid>
         </React.Fragment>
     );

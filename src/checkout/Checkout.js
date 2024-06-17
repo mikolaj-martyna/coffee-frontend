@@ -30,15 +30,16 @@ function Copyright() {
     );
 }
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+// const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Shipping address', 'Review your order'];
 
 function getStepContent(step, handleInputChange, formData) {
     switch (step) {
         case 0:
             return <AddressForm onChange={handleInputChange} formData={formData}/>;
+        // case 1:
+        //     return <PaymentForm onChange={handleInputChange} formData={formData}/>;
         case 1:
-            return <PaymentForm onChange={handleInputChange} formData={formData}/>;
-        case 2:
             return <Review formData={formData}/>;
         default:
             throw new Error('Unknown step');
@@ -99,14 +100,7 @@ export default function Checkout() {
 
         // TODO: update card info here
 
-        await fetch("http://localhost:8080/order/create", {
-            method: "POST",
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-        });
-
-        let res = await fetch("http://localhost:8080/payment", {
+        let res = await fetch("http://localhost:8080/order/create", {
             method: "POST",
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
