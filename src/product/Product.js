@@ -24,7 +24,7 @@ export default function Product(product) {
             <Box display="flex" p={2}>
                 <Typography variant="h6" pr={2}>{product.price} zł</Typography>
                 <Button variant="contained" color="primary" onClick={async () => {
-                    await fetch("spring.skni.umcs.pl/api/cart/add", {
+                    await fetch("https://spring.skni.umcs.pl/api/cart/add", {
                         method: "POST",
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('token'),

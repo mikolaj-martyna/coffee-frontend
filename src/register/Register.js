@@ -38,7 +38,7 @@ export default function Register() {
         const data = new FormData(event.currentTarget);
 
         try {
-            let res = await fetch("spring.skni.umcs.pl/api/user/create", {
+            let res = await fetch("https://spring.skni.umcs.pl/api/user/create", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

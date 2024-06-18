@@ -38,7 +38,7 @@ export default function Login() {
         const data = new FormData(event.currentTarget);
 
         try {
-            let res = await fetch("spring.skni.umcs.pl/api/auth/login", {
+            let res = await fetch("https://spring.skni.umcs.pl/api/auth/login", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

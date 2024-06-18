@@ -10,7 +10,7 @@ export default function Products() {
 
     useEffect(() => {
         const dataFetch = async () => {
-            let res = await fetch("spring.skni.umcs.pl/api/product/get/all", {
+            let res = await fetch("https://spring.skni.umcs.pl/api/product/get/all", {
                 method: "GET"
             });
 

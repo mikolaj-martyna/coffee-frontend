@@ -14,7 +14,7 @@ export default function Review({formData}) {
 
     useEffect(() => {
         const dataFetch = async () => {
-            let res = await fetch("spring.skni.umcs.pl/api/cart/get", {
+            let res = await fetch("https://spring.skni.umcs.pl/api/cart/get", {
                 method: "GET",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
