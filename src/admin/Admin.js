@@ -7,8 +7,6 @@ export default function Admin() {
         localStorage.removeItem("token");
 
         window.location.reload();
-
-        return 'Logged out';
     };
 
     return (

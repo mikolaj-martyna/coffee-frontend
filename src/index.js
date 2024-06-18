@@ -45,11 +45,11 @@ const router = createBrowserRouter([
         element: <Admin/>,
         children: [
             {
-                path: "/admin/products",
+                path: "/products",
                 element: <AdminProducts/>
             },
             {
-                path: "/admin/orders",
+                path: "/orders",
                 element: <AdminOrders/>
             }
         ]

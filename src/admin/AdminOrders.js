@@ -7,6 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import {MenuItem} from "@mui/material";
 import Typography from "@mui/material/Typography";
+import {useEffect} from "react";
 
 const OrderStatus = {
     AWAITING_PAYMENT: 'AWAITING_PAYMENT',
@@ -23,28 +24,27 @@ export default function AdminOrders() {
     const [openEdit, setOpenEdit] = React.useState(false);
     const [selectedOrder, setSelectedOrder] = React.useState({});
 
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
-            try {
-                let res = await fetch("api/order/get/all", {
-                    method: "GET",
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
-                    }
-                });
-                const json = await res.json();
-                if (res.ok) {
-                    setStatus("success");
-                    setData(json);
-                    setLoading(false);
-                } else {
-                    setStatus("error");
+            let res = await fetch("api/order/get/all", {
+                method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
-            } catch (error) {
-                console.error(error);
+            });
+
+            const json = await res.json();
+            console.log(json);
+
+            if (res.status === 200) {
+                setStatus("success");
+                setData(json);
+                setLoading(false);
+            } else {
                 setStatus("error");
             }
         };
+
         fetchData();
     }, []);
 

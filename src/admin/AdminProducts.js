@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import CircularProgress from '@mui/material/CircularProgress';
+import {useEffect} from "react";
 
 export default function AdminProductsPage() {
     const [status, setStatus] = React.useState("");
@@ -15,25 +16,24 @@ export default function AdminProductsPage() {
     const [openEdit, setOpenEdit] = React.useState(false);
     const [selectedProduct, setSelectedProduct] = React.useState({});
 
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
-            try {
-                let res = await fetch("api/product/get/all", {
-                    method: "GET",
-                });
-                const json = await res.json();
-                if (res.ok) {
-                    setStatus("success");
-                    setData(json);
-                    setLoading(false);
-                } else {
-                    setStatus("error");
-                }
-            } catch (error) {
-                console.error(error);
+            let res = await fetch("api/product/get/all", {
+                method: "GET",
+            });
+
+            const json = await res.json();
+            console.log(json);
+
+            if (res.status === 200) {
+                setStatus("success");
+                setData(json);
+                setLoading(false);
+            } else {
                 setStatus("error");
             }
         };
+
         fetchData();
     }, []);
 
