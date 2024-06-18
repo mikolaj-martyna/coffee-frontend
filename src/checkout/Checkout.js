@@ -93,8 +93,6 @@ export default function Checkout() {
             })
         });
 
-        // TODO: update card info here
-
         let res = await fetch("https://spring.skni.umcs.pl/api/order/create", {
             method: "POST",
             headers: {
