@@ -41,15 +41,15 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: "/admin",
+        path: "admin",
         element: <Admin/>,
         children: [
             {
-                path: "/products",
+                path: "products",
                 element: <AdminProducts/>
             },
             {
-                path: "/orders",
+                path: "orders",
                 element: <AdminOrders/>
             }
         ]
