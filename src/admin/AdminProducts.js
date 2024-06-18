@@ -17,9 +17,9 @@ export default function AdminProductsPage() {
     const [selectedProduct, setSelectedProduct] = React.useState({});
 
     useEffect(() => {
-        const fetchData = async () => {
-            let res = await fetch("api/product/get/all", {
-                method: "GET",
+        const dataFetch = async () => {
+            let res = await fetch("spring.skni.umcs.pl/api/product/get/all", {
+                method: "GET"
             });
 
             const json = await res.json();
@@ -34,7 +34,7 @@ export default function AdminProductsPage() {
             }
         };
 
-        fetchData();
+        dataFetch();
     }, []);
 
     const columns = [
@@ -74,8 +74,10 @@ export default function AdminProductsPage() {
     const handleEditClose = () => setOpenEdit(false);
 
     const handleDelete = async (id) => {
+        id.preventDefault();
+
         try {
-            await fetch(`api/product/delete/${id}`, {
+            await fetch(`spring.skni.umcs.pl/api/product/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -91,7 +93,7 @@ export default function AdminProductsPage() {
         event.preventDefault();
 
         try {
-            let res = await fetch("api/product/add", {
+            let res = await fetch("spring.skni.umcs.pl/api/product/add", {
                 method: "POST",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -109,7 +111,7 @@ export default function AdminProductsPage() {
 
             await res.json();
             if (res.ok) {
-                const fetchRes = await fetch("api/product/get/all", {
+                const fetchRes = await fetch("spring.skni.umcs.pl/api/product/get/all", {
                     method: "GET",
                 });
 

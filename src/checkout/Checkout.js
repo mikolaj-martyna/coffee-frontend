@@ -74,7 +74,7 @@ export default function Checkout() {
     };
 
     const handleCheckout = async (event) => {
-        await fetch("api/user/edit", {
+        await fetch("spring.skni.umcs.pl/api/user/edit", {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ export default function Checkout() {
 
         // TODO: update card info here
 
-        let res = await fetch("api/order/create", {
+        let res = await fetch("spring.skni.umcs.pl/api/order/create", {
             method: "POST",
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),

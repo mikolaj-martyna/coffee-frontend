@@ -10,7 +10,7 @@ export default function Profile() {
 
     useEffect(() => {
         const dataFetch = async () => {
-            let res = await fetch("api/user/get", {
+            let res = await fetch("spring.skni.umcs.pl/api/user/get", {
                 method: "GET",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')

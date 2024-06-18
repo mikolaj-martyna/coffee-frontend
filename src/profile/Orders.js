@@ -10,7 +10,7 @@ export default function Orders() {
 
     useEffect(() => {
         const dataFetch = async () => {
-            let res = await fetch("api/order/get/user", {
+            let res = await fetch("spring.skni.umcs.pl/api/order/get/user", {
                 method: "GET", headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }

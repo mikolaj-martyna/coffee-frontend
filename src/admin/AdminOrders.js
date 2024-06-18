@@ -26,7 +26,7 @@ export default function AdminOrders() {
 
     useEffect(() => {
         const fetchData = async () => {
-            let res = await fetch("api/order/get/all", {
+            let res = await fetch("spring.skni.umcs.pl/api/order/get/all", {
                 method: "GET",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -94,7 +94,7 @@ export default function AdminOrders() {
 
     const handleDelete = async (id) => {
         try {
-            await fetch(`api/order/delete/${id}`, {
+            await fetch(`spring.skni.umcs.pl/api/order/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -110,7 +110,7 @@ export default function AdminOrders() {
         event.preventDefault();
 
         try {
-            await fetch(`api/order/update`, {
+            await fetch(`spring.skni.umcs.pl/api/order/update`, {
                 method: "PUT",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
