@@ -74,8 +74,6 @@ export default function AdminProductsPage() {
     const handleEditClose = () => setOpenEdit(false);
 
     const handleDelete = async (id) => {
-        id.preventDefault();
-
         try {
             await fetch(`https://spring.skni.umcs.pl/api/product/delete/${id}`, {
                 method: "DELETE",
